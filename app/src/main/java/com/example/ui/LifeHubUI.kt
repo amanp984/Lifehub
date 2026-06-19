@@ -83,36 +83,46 @@ fun LifeHubMainScreen(viewModel: MainViewModel) {
 fun LifeHubTopAppBar(currentScreen: Screen, isPremium: Boolean, viewModel: MainViewModel) {
     CenterAlignedTopAppBar(
         title = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "Logo",
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "LifeHub",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 22.sp,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                if (isPremium) {
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(AccentBlue)
-                            .padding(horizontal = 6.dp, vertical = 2.dp)
-                    ) {
-                        Text(
-                            text = "PREMIUM",
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 9.sp
-                        )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "LifeHub",
+                        fontWeight = FontWeight.Black,
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.primary,
+                        letterSpacing = (-0.5).sp
+                    )
+                    if (isPremium) {
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(AccentBlue)
+                                .padding(horizontal = 4.dp, vertical = 1.dp)
+                        ) {
+                            Text(
+                                text = "PRO",
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 8.sp,
+                                letterSpacing = 0.5.sp
+                            )
+                        }
                     }
                 }
+                Text(
+                    text = "LIFE OPERATING SYSTEM",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 8.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
+                    letterSpacing = 1.5.sp
+                )
             }
         },
         navigationIcon = {
@@ -144,11 +154,13 @@ fun LifeHubTopAppBar(currentScreen: Screen, isPremium: Boolean, viewModel: MainV
 
 @Composable
 fun LifeHubBottomNavigation(currentScreen: Screen, onNavigate: (Screen) -> Unit) {
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 8.dp,
-        modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
-    ) {
+    Column {
+        HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.4f), thickness = 1.dp)
+        NavigationBar(
+            containerColor = MaterialTheme.colorScheme.surface,
+            tonalElevation = 0.dp,
+            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
+        ) {
         NavigationBarItem(
             selected = currentScreen == Screen.Dashboard,
             onClick = { onNavigate(Screen.Dashboard) },
@@ -195,6 +207,7 @@ fun LifeHubBottomNavigation(currentScreen: Screen, onNavigate: (Screen) -> Unit)
         )
     }
 }
+}
 
 // ==========================================
 // 1. DASHBOARD SCREEN
@@ -213,33 +226,91 @@ fun DashboardScreen(viewModel: MainViewModel) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Hero banner
+        // Hero banner matching "Community Notice" aesthetic
         item {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(130.dp)
-                    .clip(RoundedCornerShape(16.dp))
+                    .clip(RoundedCornerShape(26.dp))
                     .background(
                         Brush.linearGradient(
-                            colors = listOf(BluePrimary, DarkCardSurface)
+                            colors = listOf(Color(0xFF0F172A), Color(0xFF1E293B))
                         )
                     )
-                    .padding(18.dp),
+                    .border(1.dp, Color(0xFF334155).copy(alpha = 0.3f), RoundedCornerShape(26.dp))
+                    .padding(20.dp),
                 contentAlignment = Alignment.CenterStart
             ) {
-                Column {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(BluePrimary)
+                                .padding(horizontal = 8.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = "PREMIUM",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 9.sp,
+                                letterSpacing = 1.sp
+                            )
+                        }
+                        Text(
+                            text = "LifeHub Active",
+                            color = Color(0xFF38BDF8),
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 11.sp,
+                            letterSpacing = 0.5.sp
+                        )
+                    }
                     Text(
                         text = "Your Life Operating System",
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.ExtraBold,
                         fontSize = 20.sp,
-                        color = Color.White
+                        color = Color.White,
+                        letterSpacing = (-0.5).sp
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "10 comprehensive hubs unified into one premium experience.",
+                        text = "10 comprehensive operational hubs unified into one secure experience.",
                         fontSize = 12.sp,
-                        color = AccentBlue
+                        color = Color(0xFF94A3B8)
+                    )
+                }
+            }
+        }
+
+        // Search Bar matching mockup
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(MaterialTheme.colorScheme.surface)
+                    .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f), RoundedCornerShape(16.dp))
+                    .clickable { /* Fast Filter action placeholder */ }
+                    .padding(horizontal = 16.dp),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search input placeholder",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        text = "Search your life...",
+                        fontSize = 13.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.61f)
                     )
                 }
             }
@@ -251,7 +322,8 @@ fun DashboardScreen(viewModel: MainViewModel) {
                 text = "Operational Hubs",
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
+                letterSpacing = 0.5.sp
             )
         }
 
@@ -362,16 +434,16 @@ fun HubSelectionCard(
 ) {
     Card(
         modifier = modifier
-            .height(105.dp)
+            .height(115.dp)
             .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-        shape = RoundedCornerShape(12.dp)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)),
+        shape = RoundedCornerShape(24.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp),
+                .padding(14.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Row(
@@ -381,19 +453,19 @@ fun HubSelectionCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .size(34.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(accent.copy(alpha = 0.15f)),
+                        .size(36.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(accent.copy(alpha = 0.12f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(imageVector = icon, contentDescription = null, tint = accent, modifier = Modifier.size(18.dp))
                 }
-                Icon(Icons.Default.ArrowBack, contentDescription = null, tint = OnSurfaceMutedDark, modifier = Modifier.size(14.dp))
+                Icon(Icons.Default.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
             }
 
             Column {
                 Text(text = title, fontWeight = FontWeight.Bold, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
-                Text(text = desc, fontSize = 10.sp, color = OnSurfaceMutedDark)
+                Text(text = desc, fontSize = 10.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     }

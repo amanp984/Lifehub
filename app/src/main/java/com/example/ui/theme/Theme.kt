@@ -16,7 +16,8 @@ private val DarkColorScheme = darkColorScheme(
     onBackground = OnSurfaceDark,
     onSurface = OnSurfaceDark,
     outline = DarkCardBorder,
-    tertiary = AccentMint
+    tertiary = AccentMint,
+    onSurfaceVariant = OnSurfaceMutedDark
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -28,7 +29,8 @@ private val LightColorScheme = lightColorScheme(
     onBackground = OnSurfaceLight,
     onSurface = OnSurfaceLight,
     outline = LightCardBorder,
-    tertiary = AccentMint
+    tertiary = AccentMint,
+    onSurfaceVariant = OnSurfaceMutedLight
 )
 
 @Composable
@@ -36,8 +38,6 @@ fun MyApplicationTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    // We enforce an elite twilight-dark theme by default for that premium Apple-inspired experience,
-    // but support standard dynamic color mappings if requested.
     val colors = if (darkTheme) DarkColorScheme else LightColorScheme
 
     MaterialTheme(
