@@ -1,0 +1,6 @@
+{
+  "name": "LifeHub",
+  "description": "Your Entire Life In One App. Manage student life, documents, finance, career profiles, emergency family details, and utilize smart AI summaries and tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
